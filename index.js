@@ -6,6 +6,8 @@ var Lime = require('lime-js');
 /*receivers */
 var menu = require('./modules/menu/menu');
 var receivers = require('./modules/receivers/init');
+var receiverFAQ = require('./modules/receivers/faq');
+var receiverFaculdade = require('./modules/receivers/faculdade');
 
 var client = new MessagingHub.ClientBuilder()
 .withIdentifier('fisrstjavascript')
@@ -68,6 +70,12 @@ client.connect()
                     //if (infoUser){
                     switch (result.resource.sessionState) {
                         case 'fim-cadastro':
+                            receivers.init(message, client, infoUser.resource);
+                            break;
+                        case 'faculdade':
+                            receivers.init(message, client, infoUser.resource);
+                            break;
+                        case 'faq':
                             receivers.init(message, client, infoUser.resource);
                             break;
                         default:
