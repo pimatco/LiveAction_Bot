@@ -9,20 +9,19 @@ exports.menuInicial = function(destinatario, user) {
         "type": "application/vnd.lime.select+json",
         "content": {
             "scope": "immediate",
-            "text": "Seja bem vindo(a) " + user.fullName ,
+            "text": "Seja bem vindo(a) ! Eu sou Mig assistente virtual do cotemig. Como posso ajudar?",
             "options": [
                 {
-                    "text": "Cursos",
-                    "type": "application/vnd.cotemig.cursos+json",
+                    "text": "Faculdade",
+                    "type": "application/vnd.cotemig.faculdade+json",
                     "value": {}
                 },
                 {
-                    "text": "Dúvidas",
-                    "type": "application/vnd.baanko.indicacao+json",
+                    "text": "FAQ",
+                    "type": "application/vnd.cotemig.faq+json",
                     "value": {}
                 }
             ]
         }
     };
 };
-
