@@ -11,7 +11,7 @@ exports.faculdade = function(message, client, user){
         id: Lime.Guid(),
         type: "text/plain",
         to: message.from,
-        content: "teste faculdade"
+        content: "Você sabia que a faculdade cotemig é referência no mercado tecnologico? São mias de 18 anos de formando melhores profissionais. Conheça nossos cursos e SURPREENDA-SE"
     };
     client.sendMessage(msg1);
     //interrompe a execucao de outros receiver

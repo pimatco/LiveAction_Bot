@@ -11,7 +11,7 @@ exports.faq = function(message, client, user){
         id: Lime.Guid(),
         type: "text/plain",
         to: message.from,
-        content: "faq"
+        content: "Para começar coloque o seu email:"
     };
     client.sendMessage(msg1);
     //interrompe a execucao de outros receiver

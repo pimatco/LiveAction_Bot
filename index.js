@@ -60,22 +60,21 @@ client.connect()
             var infoUser = dataUser;
 
             // verifica o conteudo da mensagem para direcionar ao status correto
-            if (message.content == "COMEÇAR"){
-                receiverCadastro.cadastrar(message, client, infoUser.resource);
-            } else {
+            if (message.content == "Faculdade"){
+                receiverFaculdade.faculdade(message, client, infoUser.resource);
+            } if (message.content == "Faq"){
+                receiverFAQ.faq(message, client, infoUser.resource);
+            }  else {
                 // se nao foi informada nenhuma das opcoes de menu, recupera o status do usuario
                 client.sendCommand(command).then(function (result) {
                     console.log("result", result);
 
                     //if (infoUser){
                     switch (result.resource.sessionState) {
-                        case 'fim-cadastro':
+                        case 'Faculdade':
                             receivers.init(message, client, infoUser.resource);
                             break;
-                        case 'faculdade':
-                            receivers.init(message, client, infoUser.resource);
-                            break;
-                        case 'faq':
+                        case 'FAQ':
                             receivers.init(message, client, infoUser.resource);
                             break;
                         default:
@@ -117,6 +116,12 @@ client.connect()
             receivers.textPlainReceiver(message, client, dataUser.resource);
         });
     });
-
+    /* Receivers responsáveis pelo controle do fluxo do Menu.*/
+	client.addMessageReceiver('application/vnd.cotemig.faculdade+json', function(message) {
+		receiverFaculdade.faculdade(message, client);
+	});
+	client.addMessageReceiver('application/vnd.cotemig.faq+json', function(message) {
+		receiverFAQ.faq(message, client);
+	});
 })
 .catch((err) => console.error(err));;
