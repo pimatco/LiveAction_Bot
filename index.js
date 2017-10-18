@@ -8,6 +8,11 @@ var menu = require('./modules/menu/menu');
 var receivers = require('./modules/receivers/init');
 var receiverFAQ = require('./modules/receivers/faq');
 var receiverFaculdade = require('./modules/receivers/faculdade');
+var receiverTecnologo = require('./modules/receivers/tecnologo');
+var receiverBacharelado = require('./modules/receivers/bacharelado');
+var receiverInscricao = require('./modules/receivers/inscricao');
+var receiverSaiba = require('./modules/receivers/saiba-mais');
+var receiverFim = require('./modules/receivers/fim');
 
 var client = new MessagingHub.ClientBuilder()
 .withIdentifier('fisrstjavascript')
@@ -65,37 +70,38 @@ client.connect()
             } if (message.content == "Faq"){
                 receiverFAQ.faq(message, client, infoUser.resource);
             }  else {
-                // se nao foi informada nenhuma das opcoes de menu, recupera o status do usuario
-                client.sendCommand(command).then(function (result) {
-                    console.log("result", result);
+                receivers.init(message, client, infoUser.resource);
+                // // se nao foi informada nenhuma das opcoes de menu, recupera o status do usuario
+                // client.sendCommand(command).then(function (result) {
+                //     console.log("result", result);
 
-                    //if (infoUser){
-                    switch (result.resource.sessionState) {
-                        case 'Faculdade':
-                            receivers.init(message, client, infoUser.resource);
-                            break;
-                        case 'FAQ':
-                            receivers.init(message, client, infoUser.resource);
-                            break;
-                        default:
-                            receivers.init(message, client, infoUser.resource);
-                    }
-                }, function (errorCommand) {
-                    // se o usuario nao possui bucket, grava o mesmo no status inicial
-                    console.log(errorCommand);
+                //     //if (infoUser){
+                //     switch (result.resource.sessionState) {
+                //         case 'Faculdade':
+                //             receivers.init(message, client, infoUser.resource);
+                //             break;
+                //         case 'FAQ':
+                //             receivers.init(message, client, infoUser.resource);
+                //             break;
+                //         default:
+                //             receivers.init(message, client, infoUser.resource);
+                //     }
+                // }, function (errorCommand) {
+                //     // se o usuario nao possui bucket, grava o mesmo no status inicial
+                //     console.log(errorCommand);
 
-                    let firstCommand = {
-                        "id": Lime.Guid(),
-                        "method": "set",
-                        "uri": "/buckets/" + message.from.split('@')[0],
-                        "type": "application/json",
-                        "resource": {
-                            "sessionState": " "
-                        }
-                    };
-                    client.sendCommand(firstCommand);
-                    receivers.init(message, client, infoUser.resource);
-                });
+                //     let firstCommand = {
+                //         "id": Lime.Guid(),
+                //         "method": "set",
+                //         "uri": "/buckets/" + message.from.split('@')[0],
+                //         "type": "application/json",
+                //         "resource": {
+                //             "sessionState": " "
+                //         }
+                //     };
+                //     client.sendCommand(firstCommand);
+                //     receivers.init(message, client, infoUser.resource);
+                // });
             }
 
 		}, function(error) {
@@ -104,24 +110,31 @@ client.connect()
 		});
 	});
 
-    client.addMessageReceiver('application/vnd.baanko.inicio+json', function(message) {
-        var userCommand = {
-            "id": Lime.Guid(),
-            "to": "postmaster@messenger.gw.msging.net",
-            "method": "get",
-            "uri": "lime://messenger.gw.msging.net/accounts/" + message.from.split("@")[0]
-        };
-
-        client.sendCommand(userCommand).then(function(dataUser) {
-            receivers.textPlainReceiver(message, client, dataUser.resource);
-        });
-    });
+   
     /* Receivers responsáveis pelo controle do fluxo do Menu.*/
+    client.addMessageReceiver('application/vnd.cotemig.inicio+json', function(message) {
+        receivers.init(message, client, '');
+    });
 	client.addMessageReceiver('application/vnd.cotemig.faculdade+json', function(message) {
 		receiverFaculdade.faculdade(message, client);
 	});
 	client.addMessageReceiver('application/vnd.cotemig.faq+json', function(message) {
 		receiverFAQ.faq(message, client);
 	});
+    client.addMessageReceiver('application/vnd.cotemig.tecnologo+json', function(message) {
+        receiverTecnologo.tecnico(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.bacharelado+json', function(message) {
+        receiverBacharelado.bacharel(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.inscrever-inscricao+json', function(message) {
+        receiverInscricao.inscrever(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.saiba+json', function(message) {
+        receiverSaiba.mais(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.fim+json', function(message) {
+        receiverFim.final(message, client);
+    });
 })
 .catch((err) => console.error(err));;
