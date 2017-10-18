@@ -13,6 +13,9 @@ var receiverBacharelado = require('./modules/receivers/bacharelado');
 var receiverInscricao = require('./modules/receivers/inscricao');
 var receiverSaiba = require('./modules/receivers/saiba-mais');
 var receiverFim = require('./modules/receivers/fim');
+var receiverVmsFalar = require('./modules/receivers/vamosfalar');
+var receiverLocalizacao = require('./modules/receivers/localizacao');
+var receiverOi = require('./modules/receivers/oi');
 
 var client = new MessagingHub.ClientBuilder()
 .withIdentifier('fisrstjavascript')
@@ -63,13 +66,21 @@ client.connect()
 		client.sendCommand(userCommand).then(function(dataUser){
             //console.log(dataUser);
             var infoUser = dataUser;
+            var m = message.content;
 
             // verifica o conteudo da mensagem para direcionar ao status correto
-            if (message.content == "Faculdade"){
-                receiverFaculdade.faculdade(message, client, infoUser.resource);
-            } if (message.content == "Faq"){
-                receiverFAQ.faq(message, client, infoUser.resource);
-            }  else {
+            if (m == "oi" || m == "olá" || m == "alô" || m == "oii" || m == "oiii" || m == "ola" || m == "kd"|| m == "quem e"){
+                return receiverOi.oi(message, client, infoUser.resource);
+            }else if (m == "Faculdade" || m == "sobre" || m == "informações" || m == "faculdade" || m == "Sobre" || m == "Informações"){
+                return receiverFaculdade.faculdade(message, client, infoUser.resource);
+            } else if (m == "Faq" || m == "faq" || m == "dúvidas" || m == "duvidas"){
+                return receiverFAQ.faq(message, client, infoUser.resource);
+            } else if( m == "Endereço" || m == "endereço" || m == "localização" || m =="Localização" || m =="como chegar" || m =="Como chegar"){
+                return receiverLocalizacao.localizacao(message, client, infoUser.resource);
+            } else if( m == "saber mais" || m == "Saber mais"){
+                return receiverSaiba.mais(message, client, infoUser.resource);
+            }
+            else {
                 receivers.init(message, client, infoUser.resource);
                 // // se nao foi informada nenhuma das opcoes de menu, recupera o status do usuario
                 // client.sendCommand(command).then(function (result) {
@@ -135,6 +146,15 @@ client.connect()
     });
     client.addMessageReceiver('application/vnd.cotemig.fim+json', function(message) {
         receiverFim.final(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.vamosfalar+json', function(message) {
+        receiverVmsFalar.vamosfalar(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.localizacao+json', function(message) {
+        receiverLocalizacao.localizacao(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.oi+json', function(message) {
+        receiverOi.oi(message, client);
     });
 })
 .catch((err) => console.error(err));;

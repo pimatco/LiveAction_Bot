@@ -3,13 +3,15 @@ var moment = require('moment');
 
 // menu inicial
 exports.menuInicial = function(destinatario, user) {
+
+	
 	return {
 		"id": Lime.Guid(),
 		"to": destinatario,
 		"type": "application/vnd.lime.select+json",
 		"content": {
 			"scope": "immediate",
-			"text": "Seja bem vindo(a) ! Eu sou Mig assistente virtual do cotemig. Como posso ajudar?",
+			"text": "Seja bem vindo(a) ! Eu sou Mig assistente virtual do Cotemig. Sobre o que vamos falar hoje?",
 			"options": [
 				{
 					"text": "Faculdade",
@@ -17,8 +19,13 @@ exports.menuInicial = function(destinatario, user) {
 					"value": {}
 				},
 				{
-					"text": "Noticias",
+					"text": "Notícias",
 					"type": "application/vnd.cotemig.faq+json",
+					"value": {}
+				},
+				{
+					"text": "Direções",
+					"type": "application/vnd.cotemig.localizacao+json",
 					"value": {}
 				}
 			]
@@ -115,6 +122,36 @@ exports.menuFinal = function(destinatario, user) {
 				},
 				{
 					"text": "Não! Obrigado",
+					"type": "application/vnd.cotemig.fim+json",
+					"value": {}
+				}
+			]
+		}
+	};
+};
+
+
+exports.vmsFalar = function(destinatario, user) {
+	return {
+		"id": Lime.Guid(),
+		"to": destinatario,
+		"type": "application/vnd.lime.select+json",
+		"content": {
+			"scope": "immediate",
+			"text": "Posso te ajudar em mais alguma coisa?",
+			"options": [
+				{
+					"text": "Notícias",
+					"type": "application/vnd.cotemig.inicio+json",
+					"value": {}
+				},
+				{
+					"text": "Tecnologia",
+					"type": "application/vnd.cotemig.fim+json",
+					"value": {}
+				},
+				{
+					"text": "Empregos",
 					"type": "application/vnd.cotemig.fim+json",
 					"value": {}
 				}
