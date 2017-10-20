@@ -16,6 +16,16 @@ var receiverFim = require('./modules/receivers/fim');
 var receiverVmsFalar = require('./modules/receivers/vamosfalar');
 var receiverLocalizacao = require('./modules/receivers/localizacao');
 var receiverOi = require('./modules/receivers/oi');
+var receiverEbook = require('./modules/receivers/ebook');
+var receiverAlunoColegio = require('./modules/receivers/alunocolegio');
+var receiverAlunoFaculdade = require('./modules/receivers/alunofaculdade');
+var receiverAlunoNao = require('./modules/receivers/alunonao');
+var receiverContatoEmail = require('./modules/receivers/contato_email');
+var receiverContatoTel = require('./modules/receivers/contato_tel');
+var receiverInscricao = require('./modules/receivers/inscricao');
+var receiverInscricaoNao = require('./modules/receivers/inscricao_nao');
+var receiverSimBem = require('./modules/receivers/simbem');
+var receiverNaoBem = require('./modules/receivers/naobem');
 
 var client = new MessagingHub.ClientBuilder()
 .withIdentifier('fisrstjavascript')
@@ -52,7 +62,7 @@ client.connect()
             "id": Lime.Guid(),
             "to": "postmaster@messenger.gw.msging.net",
             "method": "get",
-            "uri": "lime://messenger.gw.msging.net/accounts/" + message.from.split("@")[0]
+            "uri": "lime://messenger.gw.msging.net/accounts/" + message.from.split("_")[0]
         };
 
         let remetente = encodeURIComponent(message.from.split('/')[0]);
@@ -79,9 +89,11 @@ client.connect()
                 return receiverLocalizacao.localizacao(message, client, infoUser.resource);
             } else if( m == "saber mais" || m == "Saber mais"){
                 return receiverSaiba.mais(message, client, infoUser.resource);
-            }
+            }       
+            
             else {
-                receivers.init(message, client, infoUser.resource);
+                return receiverVmsFalar.vamosfalar(message, client, infoUser.resource);
+                //receiverOi.oi(message, client, infoUser.resource);
                 // // se nao foi informada nenhuma das opcoes de menu, recupera o status do usuario
                 // client.sendCommand(command).then(function (result) {
                 //     console.log("result", result);
@@ -118,7 +130,8 @@ client.connect()
 		}, function(error) {
             // se o messenger nao aceitou a mensagem enviada inicialmente, grava o mesmo no status inicial
             console.log(error);
-		});
+        });
+        
 	});
 
    
@@ -155,6 +168,36 @@ client.connect()
     });
     client.addMessageReceiver('application/vnd.cotemig.oi+json', function(message) {
         receiverOi.oi(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.ebook+json', function(message) {
+        receiverEbook.ebook(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.contato_email+json', function(message) {
+        receiverContatoEmail.mContato_email(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.contato_tel+json', function(message) {
+        receiverContatoTel.mContato_tel(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.aluno_colegio+json', function(message) {
+        receiverAlunoColegio.alunocolegio(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.aluno_faculdade+json', function(message) {
+        receiverAlunoFaculdade.alunofaculdade(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.aluno_faculdade+json', function(message) {
+        receiverAlunoNao.alunonao(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.inscricao_nao+json', function(message) {
+        receiverInscricaoNao.inscrevernao(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.inscricao+json', function(message) {
+        receiverInscricao.inscrever(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.simbem+json', function(message) {
+        receiverSimBem.sbem(message, client);
+    });
+    client.addMessageReceiver('application/vnd.cotemig.naobem+json', function(message) {
+        receiverNaoBem.nbem(message, client);
     });
 })
 .catch((err) => console.error(err));;

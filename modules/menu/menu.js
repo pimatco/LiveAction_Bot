@@ -11,21 +11,70 @@ exports.menuInicial = function(destinatario, user) {
 		"type": "application/vnd.lime.select+json",
 		"content": {
 			"scope": "immediate",
-			"text": "Seja bem vindo(a) ! Eu sou Mig assistente virtual do Cotemig. Sobre o que vamos falar hoje?",
+			"text": "Meu nome é Mig, assistente virtual do Cotemig. Você é aluno do Cotemig?",
 			"options": [
 				{
+					"text": "Colegio",
+					"type": "application/vnd.cotemig.alunocolegio+json",
+					"value": {}
+				},
+				{
 					"text": "Faculdade",
-					"type": "application/vnd.cotemig.faculdade+json",
+					"type": "application/vnd.cotemig.alunofaculdade+json",
 					"value": {}
 				},
 				{
-					"text": "Notícias",
-					"type": "application/vnd.cotemig.faq+json",
+					"text": "Não sou aluno",
+					"type": "application/vnd.cotemig.alunonao+json",
+					"value": {}
+				}
+			]
+		}
+	};
+};
+
+
+exports.simnaodesconto = function(destinatario){
+	return {
+		"id": Lime.Guid(),
+		"to": destinatario,
+		"type": "application/vnd.lime.select+json",
+		"content": {
+			"scope": "immediate",
+			"text": "Sim ou não?",
+			"options": [
+				{
+					"text": "Sim",
+					"type": "application/vnd.cotemig.inscricao+json",
 					"value": {}
 				},
 				{
-					"text": "Direções",
-					"type": "application/vnd.cotemig.localizacao+json",
+					"text": "Não",
+					"type": "application/vnd.cotemig.inscricao.nao+json",
+					"value": {}
+				}
+			]
+		}
+	};
+};
+
+exports.simnaobem = function(destinatario){
+	return {
+		"id": Lime.Guid(),
+		"to": destinatario,
+		"type": "application/vnd.lime.select+json",
+		"content": {
+			"scope": "immediate",
+			"text": "Sim ou não?",
+			"options": [
+				{
+					"text": "Sim",
+					"type": "application/vnd.cotemig.simbem+json",
+					"value": {}
+				},
+				{
+					"text": "Não",
+					"type": "application/vnd.cotemig.inscricao.naobem+json",
 					"value": {}
 				}
 			]
@@ -131,28 +180,29 @@ exports.menuFinal = function(destinatario, user) {
 };
 
 
-exports.vmsFalar = function(destinatario, user) {
+
+exports.contate = function(destinatario, user) {
 	return {
 		"id": Lime.Guid(),
 		"to": destinatario,
 		"type": "application/vnd.lime.select+json",
 		"content": {
 			"scope": "immediate",
-			"text": "Posso te ajudar em mais alguma coisa?",
+			"text": "Como estou aprendendo, agora você precisará da ajuda de um humano. Escolha a melhor forma abaixo:",
 			"options": [
 				{
-					"text": "Notícias",
-					"type": "application/vnd.cotemig.inicio+json",
+					"text": "Telefone",
+					"type": "application/vnd.cotemig.contato_tel+json",
 					"value": {}
 				},
 				{
-					"text": "Tecnologia",
-					"type": "application/vnd.cotemig.fim+json",
+					"text": "Email",
+					"type": "application/vnd.cotemig.contato_email+json",
 					"value": {}
 				},
 				{
-					"text": "Empregos",
-					"type": "application/vnd.cotemig.fim+json",
+					"text": "Visita",
+					"type": "application/vnd.cotemig.localizacao+json",
 					"value": {}
 				}
 			]

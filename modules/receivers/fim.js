@@ -9,7 +9,7 @@ exports.final = function(message, client, user){
         id: Lime.Guid(),
         type: "text/plain",
         to: message.from,
-        content: "Espero ter ajudado a sanar a suas dúvidas. Qualquer coisa é só chamar ;D"
+        content: "Espero ter ajudado a solucionar suas dúvidas. Qualquer coisa é só chamar ;D"
     };
     client.sendMessage(msg);
 	//interrompe a execucao de outros maisFaculdade

@@ -7,19 +7,7 @@ var menu = require('../menu/menu');
 //fixa o usuário no menu inicial.
 exports.faq = function(message, client, user){
 
-	let msg = {
-		id: Lime.Guid(),
-		type: "application/vnd.lime.web-link+json",
-		content: {
-			"uri": "https://www.cotemig.com.br/grupo/noticias",
-			"target": "self",
-			"text": "Fique por dentro de tudo sobre o Cotemig"
-		},
-		to: message.from
-	};
-
-	client.sendMessage(msg);
-	setTimeout(function() { client.sendMessage(menu.menuFinal(message.from, user)); }, 500);
+	setTimeout(function() { client.sendMessage(menu.contate(message.from, user)); }, 500);
 	//interrompe a execucao de outros receiver
 	return false;
 };

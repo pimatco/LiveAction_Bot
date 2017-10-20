@@ -9,9 +9,9 @@ exports.inscrever = function(message, client, user){
         id: Lime.Guid(),
         type: "application/vnd.lime.web-link+json",
         content: {
-            "uri": "https://www.cotemig.com.br/grupo/noticias",
+            "uri": "http://matricula.cotemig.com.br/",
             "target": "self",
-            "text": "Segue o link para você confirmar a sua presença. Qualquer dúvida pode entrar em contato."
+            "text": "Matricule-se no link acima e receba 15% de desconto, além de começar já no segundo período."
         },
         to: message.from
     };

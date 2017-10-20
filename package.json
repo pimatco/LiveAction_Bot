@@ -16,6 +16,7 @@
   "dependencies": {
     "lime-transport-websocket": "^2.0.2",
     "messaginghub-client": "^3.4.1",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "requirejs": "^2.3.5"
   }
 }
