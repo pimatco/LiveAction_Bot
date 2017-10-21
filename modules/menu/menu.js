@@ -11,7 +11,7 @@ exports.menuInicial = function(destinatario, user) {
 		"type": "application/vnd.lime.select+json",
 		"content": {
 			"scope": "immediate",
-			"text": "Meu nome é Mig, assistente virtual do Cotemig. Você é aluno do Cotemig?",
+			"text": "Meu nome é Mig, seu assistente virtual hoje. Você é aluno Cotemig?",
 			"options": [
 				{
 					"text": "Colegio",
@@ -41,7 +41,7 @@ exports.simnaodesconto = function(destinatario){
 		"type": "application/vnd.lime.select+json",
 		"content": {
 			"scope": "immediate",
-			"text": "Sim ou não?",
+			"text": "Legal né?",
 			"options": [
 				{
 					"text": "Sim",
@@ -50,7 +50,7 @@ exports.simnaodesconto = function(destinatario){
 				},
 				{
 					"text": "Não",
-					"type": "application/vnd.cotemig.inscricao.nao+json",
+					"type": "application/vnd.cotemig.inscricao_nao+json",
 					"value": {}
 				}
 			]
@@ -74,7 +74,12 @@ exports.simnaobem = function(destinatario){
 				},
 				{
 					"text": "Não",
-					"type": "application/vnd.cotemig.inscricao.naobem+json",
+					"type": "application/vnd.cotemig.naobem+json",
+					"value": {}
+				},
+				{
+					"text": "Pular",
+					"type": "application/vnd.cotemig.init+json",
 					"value": {}
 				}
 			]

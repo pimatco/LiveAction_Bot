@@ -9,22 +9,18 @@ exports.vamosfalar = function(message, client, user){
 		id: Lime.Guid(),
 		type: "text/plain",
 		to: message.from,
-		content: "O que você disse? Não entendi. Diga 'oi', 'faculdade' ou 'localização' para ver minhas funcionalidades. "
+		content: "O que você disse? Não entendi."
 	};
-
-	let msg3 = {
+	let msg2 = {
 		id: Lime.Guid(),
-        type: "application/vnd.lime.web-link+json",
-        content: {
-            "uri": "http://cotemig.com.br/colegio/noticias/cotemig-lanca-e-book-para-orientar-a-contratacao-de-estagiarios",
-            "target": "self",
-            "text": "Ah pega esse E-Book que orienta a contratação de estagiários. "
-        },
-        to: message.from
+		type: "text/plain",
+		to: message.from,
+		content: "Ainda estou aprendendo a falar sua língua. Diga 'oi', 'contato', 'localização' e 'desconto' para ver algumas de minhas funcionalidades. "
 	};
 
 	client.sendMessage(msg);
-	setTimeout(function(){ client.sendMessage(msg3); }, 4000);
+	client.sendMessage(msg2);
+
 	//interrompe a execucao de outros receiver
 	return false;
 };

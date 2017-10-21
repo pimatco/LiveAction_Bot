@@ -9,9 +9,9 @@ exports.mais = function(message, client, user){
         id: Lime.Guid(),
         type: "application/vnd.lime.web-link+json",
         content: {
-            "uri": "https://www.cotemig.com.br/grupo/noticias",
+            "uri": "https://www.cotemig.com.br/",
             "target": "self",
-            "text": "Segue o link para você confirmar a sua presença. Qualquer dúvida pode entrar em contato."
+            "text": "Segue o link para você conferir nosso website com todas as informações."
         },
         to: message.from
     };

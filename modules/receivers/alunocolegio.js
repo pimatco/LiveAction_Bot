@@ -10,7 +10,7 @@ exports.alunocolegio = function(message, client, user){
 		id: Lime.Guid(),
 		type: "text/plain",
 		to: message.from,
-		content: "Já vi que você sabe escolher. Apesar de não ter sentimento, fico estou feliz por falar com nossos alunos. Vocês são muito especiais para nós."
+		content: "Já vi que você sabe escolher. Apesar de não ter sentimento, estou feliz no meu jeito robô de ser por falar com nossos alunos. Vocês são muito especiais para nós."
 	};
 
 	let msg2 = {
@@ -29,7 +29,8 @@ exports.alunocolegio = function(message, client, user){
 	
 	setTimeout(function(){ client.sendMessage(msg1); }, 500);
 	setTimeout(function(){ client.sendMessage(msg2); }, 4000);
-	setTimeout(function() { client.sendMessage(menu.simnaodesconto(message.from, user)); }, 5500);
+	setTimeout(function(){ client.sendMessage(msg3); }, 6000);
+	setTimeout(function() { client.sendMessage(menu.simnaodesconto(message.from, user)); }, 8500);
     
 	//interrompe a execucao de outros receiver
 	return false;

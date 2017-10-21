@@ -21,8 +21,8 @@ exports.oi = function(message, client, user){
 	};
 	
 	setTimeout(function(){ client.sendMessage(msg1); }, 1000);
-    setTimeout(function(){ client.sendMessage(msg2); }, 4000);
-	setTimeout(function() { client.sendMessage(menu.simnaobem(message.from, user)); }, 6000);
+    setTimeout(function(){ client.sendMessage(msg2); }, 2000);
+	setTimeout(function() { client.sendMessage(menu.simnaobem(message.from, user)); }, 2500);
 	
 	//interrompe a execucao de outros receiver
 	return false;
