@@ -43,7 +43,10 @@ client.connect()
     client.addMessageReceiver("text/plain", function(message) {
        console.log(message.content);
 
-        if (message.content === 'faculdade'){
+        if (message.content === 'COMEÇAR'){
+           
+            receiverOi.Oi(message, client, '');
+        }else if (message.content === 'faculdade'){
            
             receiverFaculdade.faculdade(message, client, '');
         }else if(message.content === 'dúvidas'||message.content === "duvidas"){
