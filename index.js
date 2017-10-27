@@ -29,8 +29,8 @@ var receiverNaoBem = require('./modules/receivers/naobem');
 
 
 var client = new MessagingHub.ClientBuilder()
-.withIdentifier('fisrstjavascript')
-.withAccessKey('bkJ0OEFyd29CSlB0eUE3QktBcWg=')
+.withIdentifier('<<YOUR-IDENTIFIER>>')
+.withAccessKey('<<YOUR-ACCESS-KEY>>')
 .withTransportFactory(() => new WebSocketTransport())
 .build();
 
