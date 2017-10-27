@@ -1,8 +1,8 @@
-Live Action chatbot
+### Live Action Chatbot
 
-npm install
+> npm install
 
-<< Change Blip credentials. >>
+**<< Remember to change Blip credentials. >>**
 
-node index
+> node index
 
